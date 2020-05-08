@@ -1,0 +1,267 @@
+:root {
+	--primary-color: #1a87ee;
+	--secondary-color: #7c0000;
+}
+
+html,
+body {
+	/* https://css-tricks.com/couple-takes-sticky-footer/ */
+	height: 100%;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	display: flex;
+	flex-direction: column;
+}
+
+/* For sticky footer - grow to fill the space */
+.content {
+	flex: 1 0 auto;
+}
+
+.container {
+	width: 90%;
+	margin: 0 auto;
+	overflow: none;
+	padding: 10px;
+}
+
+.app-header {
+	background: var(--primary-color);
+    box-shadow: 3px 3px 10px #888888;
+    display:flex;
+justify-content: space-between;
+}
+
+.app-header .container {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	/* justify-content: space-between; */
+	justify-content: space-between;
+	padding: 15px 10px;
+}
+
+.app-header .logo {
+	width: 50px;
+	margin-bottom: 1rem;
+}
+
+.app-header input[type='text'] {
+	padding: 7px;
+	border: #777;
+margin:6% 0 0 5%;
+	
+}
+.search-container{
+    display:flex;
+
+}
+.search-container i{
+    color:white;
+    font-size:25px;
+    margin:20px;
+   
+}
+
+.cart-container span{
+    border-radius:50px;
+    background-color:red;
+    color:#fff;
+    font-weight:500;
+    padding:4px 9px;
+    font-size:11px;
+    position:relative;
+    top: -19%;
+    left: -29%;
+}
+.subheader {
+	background: var(--secondary-color);
+	color: #fff;
+	box-shadow: 3px 3px 10px #888888;
+	font-size: 14px;
+	padding: 10px;
+	width: 90%;
+	margin: 0 auto 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.subheader p {
+	margin: 4px;
+}
+
+.subheader img {
+	width: 40px;
+}
+.actions{
+	display:flex;
+	justify-content: space-around;
+	margin:2%;
+
+}
+.actions i{
+	color:grey;
+	font-size:30px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 10px;
+}
+
+.grid .item {
+	display: flex;
+	flex-direction: column;
+	border: 1px #ccc solid;
+	padding: 10px;
+	box-shadow: 1px 1px 2px #ccc;
+}
+
+.grid .item h4 {
+	margin-bottom: 5px;
+}
+
+.grid .item p {
+	font-size: 14px;
+	color: var(--secondary-color);
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.grid .item img {
+	width: 100%;
+	
+}
+
+.app-footer {
+	flex-shrink: 0;
+	background: var(--primary-color);
+	color: #fff;
+	padding: 10px;
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+.app-footer ul {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.app-footer ul li {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.app-footer ul li i {
+	font-size: 22px;
+}
+
+
+
+/* Desktop */
+@media (min-width: 768px) {
+	.grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.grid .item img {
+        width: 90px;
+        margin-left:20%;
+	}
+}
+
+
+/*
+*/
+
+
+
+
+
+.item-name {
+  margin: 10px;
+  text-overflow: ellipsis;
+}
+
+
+
+.item-description > span + span {
+  margin-left: 10px;
+}
+
+.offer-price {
+  font-weight: 600;
+ 
+}
+
+.price {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.offer {
+  color: green;
+}
+
+.button-container {
+  text-align: center;
+  margin-top:3%;
+}
+
+.button-container > button {
+    background-color: orange;
+    border-radius: 22px;
+    border-width: 0px;
+    height: 36px;
+    width: 112px;
+    font-weight: 600;
+  
+}
+
+@media only screen and (max-width: 295px) {
+  .card {
+    border: 1px solid black;
+    border-bottom: none;
+  }
+  .card:last-child {
+    border-bottom: 1px solid black;
+  }
+}
+
+@media only screen and (max-width: 440px) and (min-width: 296px) {
+  .card {
+    border: 1px solid black;
+  }
+  .card:nth-child(even) {
+    border-left: none
+  }
+  .card:nth-child(odd) {
+    border-top: none
+  }
+  .card:first-child {
+    border-top: 1px solid black;
+  }
+}
+
+@media only screen and (min-width: 441px) {
+  .card {
+    border: 1px solid black;
+    border-right: none;
+  }
+  .card:last-child {
+    border-right: 1px solid black;
+  }
+}
+
