@@ -82,8 +82,9 @@ let itemData= data.items;
 
 let grid =document.querySelector('[grid-data]');
 
+let sortButton = document.querySelector('[sort]');
 
-
+sortButton.addEventListener('click',sortHandler);
 
 function contentGenerator(itemData){
 
@@ -123,6 +124,29 @@ function contentGenerator(itemData){
 
 contentGenerator(itemData);
 
+
+/**
+ * Search Functionality
+ */
 function searchHandler(){
         console.log("Search Handler clicked!!!");
 }
+
+/**
+ * Sort Functionality
+ */
+
+function sortHandler(){
+        while (grid.firstChild) {
+                grid.removeChild(grid.firstChild);
+        
+            };
+   let sortedData=   itemData.sort((a,b)=>{
+           return a.price.actual -b.price.actual}
+           );
+   contentGenerator(sortedData);
+}
+
+
+
+

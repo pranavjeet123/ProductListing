@@ -42,8 +42,12 @@
             <div class="img-container">
               <img class="logo" src="https://www.freepngimg.com/thumb/star/8-yellow-star-png-image-thumb.png" alt="" />
             </div>
-            <div class="search-input"><input type="text" name="search" id="search-input">
-            <label for ="search" class="search-label"><span class="search-span">Search here</span></label></div>
+            <div class="form">
+              <input type="text" name="name" autocomplete="off" required />
+              <label for="name" class=" label-name">
+                  <span class="content-name">Search Here</span>
+              </label>
+          </div>
             <div class="search-container">
               <i class="fa fa-search" onClick="searchHandler()"></i>
               <div class="cart-container"> <a href="cart.html"><i class="fa fa-shopping-cart"></i>
@@ -52,7 +56,7 @@
             
           </header>
           <div class="actions">
-            <div class="sort"><i class="fa fa-sort"></i></div>
+            <div class="sort" sort><i class="fa fa-sort"></i></div>
             <div class="filter"><i class="fa fa-filter"></i></div>
           </div>
           <div class="grid container" grid-data></div>
