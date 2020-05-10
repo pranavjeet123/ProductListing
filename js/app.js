@@ -86,6 +86,8 @@ let sortButton = document.querySelector('[sort]');
 
 sortButton.addEventListener('click', sortHandler);
 
+let asc = false;
+
 const submit = document.getElementById("submit");
 const search = document.getElementById("search");
 submit.addEventListener('submit', searchHandler);
@@ -150,14 +152,27 @@ function searchHandler(e) {
  */
 
 function sortHandler() {
+        if (asc) {
+                asc = false;
+        }
+        else {
+                asc = true;
+        }
+
+        let sortedData = itemData.sort((a, b) => {
+
+                if (asc) { return a.price.actual - b.price.actual }
+                else {
+                        return b.price.actual - a.price.actual
+                }
+
+
+        }
+        );
         while (grid.firstChild) {
                 grid.removeChild(grid.firstChild);
 
         };
-        let sortedData = itemData.sort((a, b) => {
-                return a.price.actual - b.price.actual
-        }
-        );
         contentGenerator(sortedData);
 }
 
