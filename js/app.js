@@ -134,9 +134,9 @@ contentGenerator(itemData);
  */
 function searchHandler(e) {
         e.preventDefault();
-        let target = search.value
+        let target = search.value.toLowerCase();
         let resultArr = [];
-        let result = itemData.find(value => value.name === target);
+        let result = itemData.find(value => value.name.toLowerCase() === target);
         resultArr.push(result);
         while (grid.firstChild) {
                 grid.removeChild(grid.firstChild);
