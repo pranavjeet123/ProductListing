@@ -80,6 +80,7 @@ let data = {
 
 let itemData = data.items;
 
+
 let grid = document.querySelector('[grid-data]');
 
 let sortButton = document.querySelector('[sort]');
@@ -91,10 +92,24 @@ let asc = false;
 const submit = document.getElementById("submit");
 const search = document.getElementById("search");
 submit.addEventListener('submit', searchHandler);
+let cartCount = 0;
+const cartNum = document.getElementById('cart-count');
+cartNum.innerHTML=cartCount;
+
+function Countupdater (){
+               let cData= localStorage.getItem("CartItems");
+                let cDataArray= JSON.parse(cData);
+                let cartCount = cDataArray.length;
+                console.log(cartCount)
+                cartNum.innerHTML=cartCount;    
+        
+}
+
+
 
 function contentGenerator(itemData) {
 
-        itemData.forEach((item) => {
+        itemData.forEach((item,index) => {
                 let element = document.createElement("div");
                 element.classList.add('item');
                 let img = document.createElement("img");
@@ -118,19 +133,25 @@ function contentGenerator(itemData) {
                 itemdes.appendChild(offerPrice);
                 itemdes.appendChild(price);
                 itemdes.appendChild(offer);
-
+                let button = document.createElement('button');
+                button.classList.add('add-button');
+                button.innerHTML= "Add To Cart";
                 element.appendChild(img);
                 element.appendChild(itemName);
                 element.appendChild(itemdes);
+                element.appendChild(button);
                 grid.appendChild(element);
 
         })
-
+       
 }
 
 contentGenerator(itemData);
 
-
+function showSearch()
+{
+        document.getElementById('submit').style.display = "block";
+}
 /**
  * Search Functionality
  */
@@ -145,6 +166,7 @@ function searchHandler(e) {
 
         };
         contentGenerator(resultArr);
+       
 }
 
 /**
@@ -178,4 +200,42 @@ function sortHandler() {
 
 
 
+/**
+ * Filter Functionality
+ */
 
+
+ /**
+  * Add to cart functionality.
+  * 
+  */
+
+ let cartItems = [];
+ let cartbutton = document.getElementsByClassName("add-button");
+for(let i=0;i<cartbutton.length;i++){
+let button = cartbutton[i];
+button.addEventListener('click',function(event){
+        const productDOM =event.target.parentElement;
+    
+        const cartProduct ={
+                image:productDOM.querySelector('img').getAttribute('src'),
+                 name:productDOM.querySelector('.item-name').innerHTML,
+                 offerPrice:productDOM.querySelector('.offer-price').innerHTML,
+                 price:productDOM.querySelector('.price').innerHTML,
+                offer:productDOM.querySelector('.offer').innerHTML,
+        }
+   cartItems.push(cartProduct);
+   localStorage.setItem("CartItems",JSON.stringify(cartItems));
+   Countupdater();
+          
+})
+}
+
+
+
+
+
+
+/**
+ * Cart page js
+ */
