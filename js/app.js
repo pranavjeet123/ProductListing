@@ -227,8 +227,11 @@ button.addEventListener('click',function(event){
    cartItems.push(cartProduct);
    localStorage.setItem("CartItems",JSON.stringify(cartItems));
    Countupdater();
+   button.innerHTML="In cart";
+   button.disabled = true;
           
 })
+
 }
 
 
