@@ -205,6 +205,7 @@ function sortHandler() {
  */
 
 
+
  /**
   * Add to cart functionality.
   * 
@@ -223,6 +224,7 @@ button.addEventListener('click',function(event){
                  offerPrice:productDOM.querySelector('.offer-price').innerHTML,
                  price:productDOM.querySelector('.price').innerHTML,
                 offer:productDOM.querySelector('.offer').innerHTML,
+                quantity:1
         }
    cartItems.push(cartProduct);
    localStorage.setItem("CartItems",JSON.stringify(cartItems));
