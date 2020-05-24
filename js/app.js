@@ -1,4 +1,4 @@
-//const grid container
+//Data to be used in app , lAter could be fetched using AJax , I prefer Async Await fetch Call.
 
 let data = {
         "items": [
@@ -99,7 +99,7 @@ const search = document.getElementById("search");
 submit.addEventListener('submit', searchHandler);
 let cartCount = 0;
 const cartNum = document.getElementById('cart-count');
-cartNum.innerHTML=cartCount;
+cartNum.innerHTML = cartCount;
 
 let sortButton = document.querySelector('[sort]');
 sortButton.addEventListener('click', modalGenerator);
@@ -107,20 +107,20 @@ sortButton.addEventListener('click', modalGenerator);
 let filterButton = document.querySelector('[filter]');
 filterButton.addEventListener('click', modalGenerator);
 
-function Countupdater (){
-               let cData= localStorage.getItem("CartItems");
-                let cDataArray= JSON.parse(cData);
-                let cartCount = cDataArray.length;
-                console.log(cartCount)
-                cartNum.innerHTML=cartCount;    
-        
+function Countupdater() {
+        let cData = localStorage.getItem("CartItems");
+        let cDataArray = JSON.parse(cData);
+        let cartCount = cDataArray.length;
+        console.log(cartCount)
+        cartNum.innerHTML = cartCount;
+
 }
 
 
 
 function contentGenerator(itemData) {
 
-        itemData.forEach((item,index) => {
+        itemData.forEach((item, index) => {
                 let element = document.createElement("div");
                 element.classList.add('item');
                 let img = document.createElement("img");
@@ -134,7 +134,7 @@ function contentGenerator(itemData) {
                 let offerPrice = document.createElement('span');
 
                 offerPrice.classList.add('offer-price');
-                offerPrice.innerHTML = item.price.actual;
+                offerPrice.innerHTML = "&#8377;" + item.price.actual;
                 let price = document.createElement('span');
                 price.classList.add('price');
                 price.innerHTML = item.price.display;
@@ -146,7 +146,7 @@ function contentGenerator(itemData) {
                 itemdes.appendChild(offer);
                 let button = document.createElement('button');
                 button.classList.add('add-button');
-                button.innerHTML= "Add To Cart";
+                button.innerHTML = "Add To Cart";
                 element.appendChild(img);
                 element.appendChild(itemName);
                 element.appendChild(itemdes);
@@ -154,15 +154,20 @@ function contentGenerator(itemData) {
                 grid.appendChild(element);
 
         })
-       
+
 }
 
 contentGenerator(itemData);
 
-function showSearch()
-{
+
+/**
+ * Show  Search Box upon click function 
+ */
+function showSearch() {
         document.getElementById('submit').style.display = "block";
 }
+
+
 /**
  * Search Functionality
  */
@@ -174,10 +179,9 @@ function searchHandler(e) {
         resultArr.push(result);
         while (grid.firstChild) {
                 grid.removeChild(grid.firstChild);
-
         };
         contentGenerator(resultArr);
-       
+
 }
 
 
@@ -185,27 +189,27 @@ function searchHandler(e) {
  * Modal Generator
  */
 
- function modalGenerator(event){
-       const modalbgdom= document.querySelector('.modalBg')
-       const modalheaderdom= document.querySelector('.modalHeader');
-       const modalbodydom= document.querySelector('.modalbody');
-       console.log(modalbodydom.firstChild);
-       while(modalheaderdom.firstChild  ){
-        modalheaderdom.removeChild(modalheaderdom.firstChild);
-    
-      }
+function modalGenerator(event) {
+        const modalbgdom = document.querySelector('.modalBg')
+        const modalheaderdom = document.querySelector('.modalHeader');
+        const modalbodydom = document.querySelector('.modalbody');
+        console.log(modalbodydom.firstChild);
+        while (modalheaderdom.firstChild) {
+                modalheaderdom.removeChild(modalheaderdom.firstChild);
 
-      while(modalbodydom.firstChild !== null){
-        modalbodydom.removeChild(modalbodydom.firstChild);
-      }
-     
-      
-       modalbgdom.style.display='flex';
-      
-      
-         if(event.target.parentElement.classList.contains('sort')){
-                modalHeaderDom.innerHTML="Sort Options";
-                 modalbodyDom.insertAdjacentHTML("afterbegin",`
+        }
+
+        while (modalbodydom.firstChild !== null) {
+                modalbodydom.removeChild(modalbodydom.firstChild);
+        }
+
+
+        modalbgdom.style.display = 'flex';
+
+
+        if (event.target.parentElement.classList.contains('sort')) {
+                modalHeaderDom.innerHTML = "Sort Options";
+                modalbodyDom.insertAdjacentHTML("afterbegin", `
                  <input type="radio" name="sorting" id="asc" value="asc">
                  <label for ="asc">Price--High Low</label>
                  <br/>
@@ -215,58 +219,58 @@ function searchHandler(e) {
                  <input type="radio" name="sorting" id="discount" value="discount">
                  <label for ="discount">Discount</label>
                  `)
-         }
-         else{
-                modalHeaderDom.innerHTML="Filter Options";
-                modalbodyDom.insertAdjacentHTML("afterbegin",`
+        }
+        else {
+                modalHeaderDom.innerHTML = "Filter Options";
+                modalbodyDom.insertAdjacentHTML("afterbegin", `
                 <input type="range" min="1000" max="100000" value ="100000" class="slider" id="slider">
                 
                 `)
-         }
-       
-       
- }
+        }
+
+
+}
 /**
  * Sort Functionality
  */
 
-function sortHandler(value,type) {
-        
-if(type ==="price"){
+function sortHandler(value, type) {
+
+        if (type === "price") {
+                let sortedData = itemData.sort((a, b) => {
+
+                        if (value === asc) { return b.price.actual - a.price.actual }
+                        else {
+                                return a.price.actual - b.price.actual
+                        }
+
+
+                }
+                );
+
+                while (grid.firstChild) {
+                        grid.removeChild(grid.firstChild);
+
+                };
+                contentGenerator(sortedData);
+        }
+
         let sortedData = itemData.sort((a, b) => {
 
-                if (value === asc) { return b.price.actual - a.price.actual }
-                else {
-                        return a.price.actual - b.price.actual
-                }
+                return b.discount - a.discount;
+
 
 
         }
         );
-
-        while (grid.firstChild) {
-                grid.removeChild(grid.firstChild);
-
-        };
-        contentGenerator(sortedData);
-}
-
-        let sortedData = itemData.sort((a, b) => {
-
-                 return b.discount - a.discount ;
-               
-
-
-        }
-        ); 
         while (grid.firstChild) {
                 grid.removeChild(grid.firstChild);
 
         };
         contentGenerator(sortedData);
 
-       
-       
+
+
 }
 
 
@@ -277,7 +281,7 @@ if(type ==="price"){
 
 
 const applyDom = document.querySelector('.apply');
-applyDom.addEventListener("click",applyHandler)
+applyDom.addEventListener("click", applyHandler)
 
 
 
@@ -286,78 +290,69 @@ applyDom.addEventListener("click",applyHandler)
  * ApplyHandler
  */
 
- function applyHandler(){
+function applyHandler() {
         const ascendingDom = document.getElementById('asc');
         const descendingDom = document.getElementById('dec');
         const discountDom = document.getElementById('discount');
 
-        if(ascendingDom.checked)
-        {
-                sortHandler(asc,"price");
+        if (ascendingDom.checked) {
+                sortHandler(asc, "price");
         }
-        else if(descendingDom.checked){
-                sortHandler(dec,"price");
-        } else if(discountDom.checked){
-                sortHandler(asc,"offer");
-        } 
-                
-        else{
+        else if (descendingDom.checked) {
+                sortHandler(dec, "price");
+        } else if (discountDom.checked) {
+                sortHandler(asc, "offer");
+        }
+
+        else {
                 console.log("Nothing is checked");
         }
-             closeModal(); 
-        }
- 
-
-
-        /**
- * Cancel Handler.
- * This function is a callback event function which closes the model
- */
-function closeModal (){
-        let modalbgdom = document.querySelector('.modalBg');
-        modalbgdom.style.display='none';  
+        closeModal();
 }
-
-const cancelDom = document.querySelector('.cancel');
-cancelDom.addEventListener("click",closeModal);
-
-
-
- /**
-  * Add to cart functionality.
-  * 
-  */
-
- let cartItems = [];
- let cartbutton = document.getElementsByClassName("add-button");
-for(let i=0;i<cartbutton.length;i++){
-let button = cartbutton[i];
-button.addEventListener('click',function(event){
-        const productDOM =event.target.parentElement;
-    
-        const cartProduct ={
-                image:productDOM.querySelector('img').getAttribute('src'),
-                 name:productDOM.querySelector('.item-name').innerHTML,
-                 offerPrice:productDOM.querySelector('.offer-price').innerHTML,
-                 price:productDOM.querySelector('.price').innerHTML,
-                offer:productDOM.querySelector('.offer').innerHTML,
-                quantity:1
-        }
-   cartItems.push(cartProduct);
-   localStorage.setItem("CartItems",JSON.stringify(cartItems));
-   Countupdater();
-   button.innerHTML="In cart";
-   button.disabled = true;
-          
-})
-
-}
-
-
-
 
 
 
 /**
- * Cart page js
+* Cancel Handler.
+* This function is a callback event function which closes the model
+*/
+function closeModal() {
+        let modalbgdom = document.querySelector('.modalBg');
+        modalbgdom.style.display = 'none';
+}
+
+const cancelDom = document.querySelector('.cancel');
+cancelDom.addEventListener("click", closeModal);
+
+
+
+/**
+ * Add to cart functionality.
+ * 
  */
+
+let cartItems = [];
+let cartbutton = document.getElementsByClassName("add-button");
+for (let i = 0; i < cartbutton.length; i++) {
+        let button = cartbutton[i];
+        button.addEventListener('click', function (event) {
+                const productDOM = event.target.parentElement;
+
+                const cartProduct = {
+                        image: productDOM.querySelector('img').getAttribute('src'),
+                        name: productDOM.querySelector('.item-name').innerHTML,
+                        offerPrice: productDOM.querySelector('.offer-price').innerHTML,
+                        price: productDOM.querySelector('.price').innerHTML,
+                        offer: productDOM.querySelector('.offer').innerHTML,
+                        quantity: 1
+                }
+                cartItems.push(cartProduct);
+                localStorage.setItem("CartItems", JSON.stringify(cartItems));
+                Countupdater();
+                button.innerHTML = "In cart";
+                button.disabled = true;
+
+        })
+
+}
+

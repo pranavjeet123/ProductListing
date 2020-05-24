@@ -10,17 +10,17 @@ let cartContainer = document.querySelector(".cartpage-container");
 
 
 
-let Data= localStorage.getItem("CartItems");
+let Data = localStorage.getItem("CartItems");
 //cART data is an array of items in localstorage present.
 
 let cartData = JSON.parse(Data);
 
-if(!cartData){
+if (!cartData) {
     alert("ops no data");
 }
 
-cartData.forEach(value=>{
-    cartContainer.insertAdjacentHTML("beforeend",`
+cartData.forEach(value => {
+    cartContainer.insertAdjacentHTML("beforeend", `
 <div class="cart-items">
 <img src ="${value.image}"  alt ="${value.name}">
 <div class="cart-actions">
@@ -42,43 +42,65 @@ cartData.forEach(value=>{
 `);
 })
 
-const removeBtnDom = document.querySelectorAll ('.remove-btn');
-removeBtnDom.forEach((eachBtn)=>{
-    eachBtn.addEventListener('click',(e)=>{
-        const productName =document.querySelector('.cart-itemName').innerHTML;
+/**
+ * A utility function to remove item from Localstorage
+ * 
+ */
 
-        const removeBtnparentDOM =event.target.parentElement.parentElement;
+function removeItemLS(name) {
+    let newCartData = cartData.filter(cartItem => cartItem.name !== name);
+    localStorage.setItem("CartItems", JSON.stringify(newCartData));
+}
+
+
+
+const removeBtnDom = document.querySelectorAll('.remove-btn');
+removeBtnDom.forEach((eachBtn) => {
+    eachBtn.addEventListener('click', (e) => {
+        const productName = document.querySelector('.cart-itemName').innerHTML;
+
+        const removeBtnparentDOM = event.target.parentElement.parentElement;
         removeBtnparentDOM.remove();
-       //deleting an object based on productName and setting Loalstorage
-       let newCartData =cartData.filter(cartItem=>cartItem.name !==productName);
-       localStorage.setItem("CartItems",JSON.stringify(newCartData));
-       
+        //deleting an object based on productName and setting Loalstorage
+        removeItemLS(productName);
+
     })
 })
 
-const decreaseBtnDom = document.querySelectorAll ('[data-action = DECREASE_ITEM]');
-decreaseBtnDom.forEach((eachBtn)=>{
-    eachBtn.addEventListener('click',(e)=>{
-        const decreaseBtnparentDOM =event.target.parentElement.parentElement.parentElement;
-        
+
+/**Decrement  Button functionality
+ * It decrease the count of Product 
+ * If product count reaches 0 Automatically the product will removed from the DOM.
+ */
+const decreaseBtnDom = document.querySelectorAll('[data-action = DECREASE_ITEM]');
+decreaseBtnDom.forEach((eachBtn) => {
+    eachBtn.addEventListener('click', (e) => {
+        const decreaseBtnparentDOM = event.target.parentElement.parentElement.parentElement;
+
         let decrementQuantity = document.querySelector('.cart-quantity');
-      console.log(decrementQuantity.innerHTML);
-         if( decrementQuantity.innerHTML <= 1 ){
+        decrementQuantity.innerHTML = parseInt(decrementQuantity.innerHTML) - 1;
+        console.log(decrementQuantity.innerHTML);
+
+        if (decrementQuantity.innerHTML < 1) {
+            decrementQuantity.innerHTML = 0;
             decreaseBtnparentDOM.remove();
-         }
-         decrementQuantity.innerHTML=decrementQuantity.innerHTML-1;
+        }
+
     })
 })
 
+/**Increase Button functionality
+ * It increses the count of Product 
+ * 
+ */
+const increaseBtnDom = document.querySelectorAll('[data-action = INCREASE_ITEM]');
+increaseBtnDom.forEach((eachBtn) => {
+    eachBtn.addEventListener('click', (e) => {
 
-const increaseBtnDom = document.querySelectorAll ('[data-action = INCREASE_ITEM]');
-increaseBtnDom.forEach((eachBtn)=>{
-    eachBtn.addEventListener('click',(e)=>{
-        
         let incrementQuantityDom = document.querySelector('.cart-quantity');
-      
-        incrementQuantityDom.innerHTML  =parseInt(incrementQuantityDom.innerHTML) + 1;
-        
-      
+
+        incrementQuantityDom.innerHTML = parseInt(incrementQuantityDom.innerHTML) + 1;
+
+
     })
 })
