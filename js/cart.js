@@ -48,10 +48,10 @@ removeBtnDom.forEach((eachBtn)=>{
         const productName =document.querySelector('.cart-itemName').innerHTML;
 
         const removeBtnparentDOM =event.target.parentElement.parentElement;
-        console.log(productName);
         removeBtnparentDOM.remove();
-        let index = cartData.indexOf(productName);
-        console.log(index);
+       //deleting an object based on productName and setting Loalstorage
+       let newCartData =cartData.filter(cartItem=>cartItem.name !==productName);
+       localStorage.setItem("CartItems",JSON.stringify(newCartData));
        
     })
 })
