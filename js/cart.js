@@ -50,7 +50,9 @@ removeBtnDom.forEach((eachBtn)=>{
         const removeBtnparentDOM =event.target.parentElement.parentElement;
         console.log(productName);
         removeBtnparentDOM.remove();
-        
+        let index = cartData.indexOf(productName);
+        console.log(index);
+       
     })
 })
 

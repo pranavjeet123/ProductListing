@@ -14,7 +14,7 @@
    <link href="css/main.css" rel="stylesheet">
 
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -26,7 +26,17 @@
 </head>
 
 <body>
-     
+  <div class="modalBg">
+    <div class="modalContent">
+      <div class="modalHeader"></div>
+      <div class="modalbody"></div>
+      <div class="modal-action">
+        <button class="cancel">Cancel</button>
+      <button class="apply">Apply</button>
+      </div>
+      
+    </div>
+  </div> 
         <div class="content">
           <header class="app-header">
             <div class="img-container">
@@ -47,20 +57,13 @@
           </header>
           <div class="actions">
             <div class="sort" sort><i class="fa fa-sort"></i></div>
-            <div class="filter"><i class="fa fa-filter"></i></div>
+            <div class="filter" filter><i class="fa fa-filter"></i></div>
           </div>
           <div class="grid container" grid-data></div>
         </div>
 
         <!---Nodal PopUp-->
-<div class="modalBg">
-        <div class="modalContent">
-          <div class="modalHeader"></div>
-          <div class="modalbody"></div>
-          <button class="cancel">Cancel</button>
-          <button class="apply">Apply</button>
-        </div>
-      </div>
+
         <footer class="app-footer">
           <ul>
             <li>
@@ -71,7 +74,7 @@
         </footer>
         
            
-         
+        
           
        
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

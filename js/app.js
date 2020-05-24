@@ -83,11 +83,16 @@ let itemData = data.items;
 
 let grid = document.querySelector('[grid-data]');
 
-let sortButton = document.querySelector('[sort]');
+const modalDom = document.querySelector('.modalBg');
+const modalHeaderDom = document.querySelector('.modalHeader');
+const modalbodyDom = document.querySelector('.modalbody');
 
-sortButton.addEventListener('click', sortHandler);
 
 let asc = false;
+
+
+
+
 
 const submit = document.getElementById("submit");
 const search = document.getElementById("search");
@@ -95,6 +100,12 @@ submit.addEventListener('submit', searchHandler);
 let cartCount = 0;
 const cartNum = document.getElementById('cart-count');
 cartNum.innerHTML=cartCount;
+
+let sortButton = document.querySelector('[sort]');
+sortButton.addEventListener('click', modalGenerator);
+
+let filterButton = document.querySelector('[filter]');
+filterButton.addEventListener('click', modalGenerator);
 
 function Countupdater (){
                let cData= localStorage.getItem("CartItems");
@@ -169,28 +180,70 @@ function searchHandler(e) {
        
 }
 
+
+/**
+ * Modal Generator
+ */
+
+ function modalGenerator(event){
+       const modalbgdom= document.querySelector('.modalBg')
+       const modalheaderdom= document.querySelector('.modalHeader');
+       const modalbodydom= document.querySelector('.modalbody');
+       console.log(modalbodydom.firstChild);
+       while(modalheaderdom.firstChild  ){
+        modalheaderdom.removeChild(modalheaderdom.firstChild);
+    
+      }
+
+      while(modalbodydom.firstChild !== null){
+        modalbodydom.removeChild(modalbodydom.firstChild);
+      }
+     
+      
+       modalbgdom.style.display='flex';
+      
+      
+         if(event.target.parentElement.classList.contains('sort')){
+                modalHeaderDom.innerHTML="Sort Options";
+                 modalbodyDom.insertAdjacentHTML("afterbegin",`
+                 <input type="radio" name="sorting" id="asc" value="asc">
+                 <label for ="asc">Price--High Low</label>
+                 <br/>
+                 <input type="radio" name="sorting" id="dec" value="dec">
+                 <label for ="dec">Price--Low High</label>
+                 <br/>
+                 <input type="radio" name="sorting" id="discount" value="discount">
+                 <label for ="discount">Discount</label>
+                 `)
+         }
+         else{
+                modalHeaderDom.innerHTML="Filter Options";
+                modalbodyDom.insertAdjacentHTML("afterbegin",`
+                <input type="range" min="1000" max="100000" value ="100000" class="slider" id="slider">
+                
+                `)
+         }
+       
+       
+ }
 /**
  * Sort Functionality
  */
 
-function sortHandler() {
-        if (asc) {
-                asc = false;
-        }
-        else {
-                asc = true;
-        }
-
+function sortHandler(value,type) {
+        
+if(type ==="price"){
         let sortedData = itemData.sort((a, b) => {
 
-                if (asc) { return a.price.actual - b.price.actual }
+                if (value === asc) { return b.price.actual - a.price.actual }
                 else {
-                        return b.price.actual - a.price.actual
+                        return a.price.actual - b.price.actual
                 }
 
 
         }
         );
+
         while (grid.firstChild) {
                 grid.removeChild(grid.firstChild);
 
@@ -198,11 +251,75 @@ function sortHandler() {
         contentGenerator(sortedData);
 }
 
+        let sortedData = itemData.sort((a, b) => {
+
+                 return b.discount - a.discount ;
+               
+
+
+        }
+        ); 
+        while (grid.firstChild) {
+                grid.removeChild(grid.firstChild);
+
+        };
+        contentGenerator(sortedData);
+
+       
+       
+}
+
 
 
 /**
  * Filter Functionality
  */
+
+
+const applyDom = document.querySelector('.apply');
+applyDom.addEventListener("click",applyHandler)
+
+
+
+
+/**
+ * ApplyHandler
+ */
+
+ function applyHandler(){
+        const ascendingDom = document.getElementById('asc');
+        const descendingDom = document.getElementById('dec');
+        const discountDom = document.getElementById('discount');
+
+        if(ascendingDom.checked)
+        {
+                sortHandler(asc,"price");
+        }
+        else if(descendingDom.checked){
+                sortHandler(dec,"price");
+        } else if(discountDom.checked){
+                sortHandler(asc,"offer");
+        } 
+                
+        else{
+                console.log("Nothing is checked");
+        }
+             closeModal(); 
+        }
+ 
+
+
+        /**
+ * Cancel Handler.
+ * This function is a callback event function which closes the model
+ */
+function closeModal (){
+        let modalbgdom = document.querySelector('.modalBg');
+        modalbgdom.style.display='none';  
+}
+
+const cancelDom = document.querySelector('.cancel');
+cancelDom.addEventListener("click",closeModal);
 
 
 
