@@ -134,7 +134,7 @@ function contentGenerator(itemData) {
                 let offerPrice = document.createElement('span');
 
                 offerPrice.classList.add('offer-price');
-                offerPrice.innerHTML =  item.price.actual;
+                offerPrice.innerHTML = item.price.actual;
                 let price = document.createElement('span');
                 price.classList.add('price');
                 price.innerHTML = item.price.display;

@@ -14,6 +14,11 @@ if (cartData) {
     setCostSummary(cartData);
 }
 
+/**
+ * The below code will formulate the cart items as an object
+ * used beforeEnd to come as a stack from bottom to up
+ * all css could be found in main.css file
+ */
 
 cartData.forEach(value => {
     cartContainer.insertAdjacentHTML("beforeend", `
@@ -47,7 +52,7 @@ function removeItemLS(name) {
     let newCartData = cartData.filter(cartItem => cartItem.name !== name);
     setCostSummary(newCartData);
     localStorage.setItem("CartItems", JSON.stringify(newCartData));
-    
+
 }
 
 /**
@@ -56,7 +61,7 @@ function removeItemLS(name) {
  * and calculate the cost and added values to respeccted labels.
  */
 
- function setCostSummary(value){
+function setCostSummary(value) {
     let totalPrice = 0;
     let discountPrice = 0;
     value.forEach((product) => {
@@ -65,7 +70,7 @@ function removeItemLS(name) {
     })
     pricecostDom.innerHTML = totalPrice;
     discountcostDom.innerHTML = discountPrice;
- }
+}
 
 const removeBtnDom = document.querySelectorAll('.remove-btn');
 removeBtnDom.forEach((eachBtn) => {
@@ -98,13 +103,13 @@ decreaseBtnDom.forEach((eachBtn) => {
         let decrementQuantity = document.querySelector('.cart-quantity');
         decrementQuantity.innerHTML = parseInt(decrementQuantity.innerHTML) - 1;
 
-        intdiscountpriceCost=parseInt(discountcostDom.innerHTML);
+        intdiscountpriceCost = parseInt(discountcostDom.innerHTML);
 
-        intpriceCost=parseInt(pricecostDom.innerHTML);
+        intpriceCost = parseInt(pricecostDom.innerHTML);
 
- discountcostDom.innerHTML=intdiscountpriceCost-decrementofferPricevalue;
+        discountcostDom.innerHTML = intdiscountpriceCost - decrementofferPricevalue;
 
- pricecostDom.innerHTML=intpriceCost-decrementpricevalue;
+        pricecostDom.innerHTML = intpriceCost - decrementpricevalue;
 
         if (decrementQuantity.innerHTML < 1) {
             decrementQuantity.innerHTML = 0;
@@ -126,21 +131,19 @@ increaseBtnDom.forEach((eachBtn) => {
         let incrementofferPricevalue = parseInt(document.querySelector('.cart-offerPrice').innerHTML);
 
         let incrementpricevalue = parseInt(document.querySelector('.cart-price').innerHTML);
-     
+
         let incrementQuantityDom = document.querySelector('.cart-quantity');
         incrementQuantityDom.innerHTML = parseInt(incrementQuantityDom.innerHTML) + 1;
-        intdiscountpriceCost=parseInt(discountcostDom.innerHTML);
+        intdiscountpriceCost = parseInt(discountcostDom.innerHTML);
 
-        intpriceCost=parseInt(pricecostDom.innerHTML);
+        intpriceCost = parseInt(pricecostDom.innerHTML);
 
- discountcostDom.innerHTML=intdiscountpriceCost+incrementofferPricevalue;
+        discountcostDom.innerHTML = intdiscountpriceCost + incrementofferPricevalue;
 
- pricecostDom.innerHTML=intpriceCost+incrementpricevalue;
+        pricecostDom.innerHTML = intpriceCost + incrementpricevalue;
 
     })
 })
 
-/**
- * Calculating intial value for cost summary
- */
+
 
