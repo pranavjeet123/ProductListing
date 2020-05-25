@@ -88,11 +88,23 @@ removeBtnDom.forEach((eachBtn) => {
 const decreaseBtnDom = document.querySelectorAll('[data-action = DECREASE_ITEM]');
 decreaseBtnDom.forEach((eachBtn) => {
     eachBtn.addEventListener('click', (e) => {
+
+        let decrementofferPricevalue = parseInt(document.querySelector('.cart-offerPrice').innerHTML);
+
+        let decrementpricevalue = parseInt(document.querySelector('.cart-price').innerHTML);
+
         const decreaseBtnparentDOM = event.target.parentElement.parentElement.parentElement;
 
         let decrementQuantity = document.querySelector('.cart-quantity');
         decrementQuantity.innerHTML = parseInt(decrementQuantity.innerHTML) - 1;
-        console.log(decrementQuantity.innerHTML);
+
+        intdiscountpriceCost=parseInt(discountcostDom.innerHTML);
+
+        intpriceCost=parseInt(pricecostDom.innerHTML);
+
+ discountcostDom.innerHTML=intdiscountpriceCost-decrementofferPricevalue;
+
+ pricecostDom.innerHTML=intpriceCost-decrementpricevalue;
 
         if (decrementQuantity.innerHTML < 1) {
             decrementQuantity.innerHTML = 0;
@@ -107,14 +119,23 @@ decreaseBtnDom.forEach((eachBtn) => {
  * 
  */
 const increaseBtnDom = document.querySelectorAll('[data-action = INCREASE_ITEM]');
+
 increaseBtnDom.forEach((eachBtn) => {
 
     eachBtn.addEventListener('click', (e) => {
+        let incrementofferPricevalue = parseInt(document.querySelector('.cart-offerPrice').innerHTML);
 
+        let incrementpricevalue = parseInt(document.querySelector('.cart-price').innerHTML);
+     
         let incrementQuantityDom = document.querySelector('.cart-quantity');
-        console.log(incrementQuantityDom.parentElement.parentElement);
         incrementQuantityDom.innerHTML = parseInt(incrementQuantityDom.innerHTML) + 1;
+        intdiscountpriceCost=parseInt(discountcostDom.innerHTML);
 
+        intpriceCost=parseInt(pricecostDom.innerHTML);
+
+ discountcostDom.innerHTML=intdiscountpriceCost+incrementofferPricevalue;
+
+ pricecostDom.innerHTML=intpriceCost+incrementpricevalue;
 
     })
 })
