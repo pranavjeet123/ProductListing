@@ -469,3 +469,26 @@ font-weight: 600;
 	color:grey;
 }
 
+.priceDetail{
+    width: 85%;
+    height: 50%;
+    border-style: groove;
+    margin-top: 2%;
+	margin-left: 10%;
+	
+}
+.priceHeader{
+	color:grey;
+	font-weight:700;
+	margin:1%;
+}
+
+.pricesummary{
+	display:flex;
+	justify-content: space-around;
+}
+
+.discountsummary{
+	display:flex;
+	justify-content: space-around;
+}

@@ -1,15 +1,6 @@
-
-
-
-
-
-
-
+const pricecostDom = document.querySelector('.pricecost');
+const discountcostDom = document.querySelector('.discountcost');
 let cartContainer = document.querySelector(".cartpage-container");
-
-
-
-
 let Data = localStorage.getItem("CartItems");
 //cART data is an array of items in localstorage present.
 
@@ -19,6 +10,18 @@ if (!cartData) {
     alert("ops no data");
 }
 
+if (cartData) {
+    let totalPrice = 0;
+    let discountPrice = 0;
+    cartData.forEach((product) => {
+        totalPrice = totalPrice + parseInt(product.price);
+        discountPrice = discountPrice + parseInt(product.offerPrice);
+    })
+    pricecostDom.innerHTML = totalPrice;
+    discountcostDom.innerHTML = discountPrice;
+}
+
+
 cartData.forEach(value => {
     cartContainer.insertAdjacentHTML("beforeend", `
 <div class="cart-items">
@@ -26,7 +29,7 @@ cartData.forEach(value => {
 <div class="cart-actions">
  <div class="cart-itemName">${value.name}</div>
 <div class="cart-itemInfo">
- <div class="cart-offerPrice">&#8377;${value.offerPrice}</div>
+ <div class="cart-offerPrice">${value.offerPrice}</div>
  <div class="cart-price">${value.price}</div>
  <div class="cart-offer">${value.offer}</div>
  </div>
@@ -95,12 +98,18 @@ decreaseBtnDom.forEach((eachBtn) => {
  */
 const increaseBtnDom = document.querySelectorAll('[data-action = INCREASE_ITEM]');
 increaseBtnDom.forEach((eachBtn) => {
+
     eachBtn.addEventListener('click', (e) => {
 
         let incrementQuantityDom = document.querySelector('.cart-quantity');
-
+        console.log(incrementQuantityDom.parentElement.parentElement);
         incrementQuantityDom.innerHTML = parseInt(incrementQuantityDom.innerHTML) + 1;
 
 
     })
 })
+
+/**
+ * Calculating intial value for cost summary
+ */
+
