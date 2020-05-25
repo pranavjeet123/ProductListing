@@ -138,7 +138,7 @@ function contentGenerator(itemData) {
                 let price = document.createElement('span');
                 price.classList.add('price');
                 price.innerHTML = item.price.display;
-                let offer = document.createElement('span');
+                let offer = document.createElement('div');
                 offer.classList.add('offer');
                 offer.innerHTML = item.discount + " % OFF";
                 itemdes.appendChild(offerPrice);

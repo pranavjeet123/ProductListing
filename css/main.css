@@ -259,18 +259,27 @@ color:yellow;
 	 
    }
    
-   .offer-price {
-	 font-weight: 600;
+   .offer-price,.cart-offerPrice {
+	 font-weight: 700;
 	
    }
+
+   .cart-offerPrice::before{
+	content:"\20B9";
+}
+
+   .offer-price::before{
+	   content:"\20B9";
+   }
    
-   .price {
+   .price,.cart-price {
 	 text-decoration: line-through;
 	 color: grey;
    }
    
-   .offer {
+   .offer,.cart-offer {
 	 color: green;
+	 font-weight: 600;
    }
    
    .button-container {
