@@ -11,14 +11,7 @@ if (!cartData) {
 }
 
 if (cartData) {
-    let totalPrice = 0;
-    let discountPrice = 0;
-    cartData.forEach((product) => {
-        totalPrice = totalPrice + parseInt(product.price);
-        discountPrice = discountPrice + parseInt(product.offerPrice);
-    })
-    pricecostDom.innerHTML = totalPrice;
-    discountcostDom.innerHTML = discountPrice;
+    setCostSummary(cartData);
 }
 
 
@@ -52,10 +45,27 @@ cartData.forEach(value => {
 
 function removeItemLS(name) {
     let newCartData = cartData.filter(cartItem => cartItem.name !== name);
+    setCostSummary(newCartData);
     localStorage.setItem("CartItems", JSON.stringify(newCartData));
+    
 }
 
+/**
+ * A Utility function for setting the cost summary for every action
+ * Its takes an array as an input
+ * and calculate the cost and added values to respeccted labels.
+ */
 
+ function setCostSummary(value){
+    let totalPrice = 0;
+    let discountPrice = 0;
+    value.forEach((product) => {
+        totalPrice = totalPrice + parseInt(product.price);
+        discountPrice = discountPrice + parseInt(product.offerPrice);
+    })
+    pricecostDom.innerHTML = totalPrice;
+    discountcostDom.innerHTML = discountPrice;
+ }
 
 const removeBtnDom = document.querySelectorAll('.remove-btn');
 removeBtnDom.forEach((eachBtn) => {
